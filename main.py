@@ -1,4 +1,5 @@
 import datetime
+import os
 from typing import Tuple
 from functools import wraps
 import pytz
@@ -11,8 +12,11 @@ from http import HTTPStatus
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
+user = os.getenv("PSQL_USER")
+password = os.getenv("PSQL_PASS")
+
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://python_mich:Musyimi7.@localhost:5432/flask_todo"
+app.config["SQLALCHEMY_DATABASE_URI"] = f"postgresql://{user}:{password}@localhost:5432/flask_todo"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
